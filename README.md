@@ -231,7 +231,8 @@ Key capabilities include:
 * Supporting automated reporting, health checks, and troubleshooting activities.
 
 By centralising frequently used functions into a single library, the toolkit maintains consistent behaviour across scripts, improves maintainability, and reduces duplication of operational logic.
-Typical use cases include system health validation, diagnostics automation, infrastructure reporting, workflow standardisation, and general Linux administration tasks within large-scale compute environments.
+Typical use cases include system health validation, diagnostics automation, infrastructure reporting, workflow standardisation, and Linux administration tasks within large-scale HPC environments.
+
 
 
 ---
