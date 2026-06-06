@@ -217,20 +217,22 @@ Typical use cases include hardware verification, architecture-aware troubleshoot
 ---
 
 ### functions.sh
-Shared utility library used by the HPC diagnostics scripts to simplify common operational tasks on HPE Cray EX systems. 
-The file provides reusable functions for xname validation and parsing, node and slot translation, scheduler interaction, Redfish API queries, BMC credential retrieval, and reservation management.
-The library standardises many routine tasks performed during cluster troubleshooting, including:
-Validating and parsing Cray xname identifiers (cabinet, chassis, slot, node, and BMC formats).
-Translating between NIDs and xnames using /etc/cray/nidX.
-Querying node state and metadata from PBS scheduler (pbsnodes).
-Automating node operations such as offline/online actions, comments, and reservation management.
-Discovering and selecting available login nodes for scheduler interaction.
-Identifying CPU architecture types (e.g. Milan vs Genoa) for targeted diagnostics.
-Performing Redfish API queries against node BMCs for hardware telemetry access.
-Retrieving BMC credentials via Cray SCSD services.
-Determining slot relationships such as sibling nodes and BMC mappings.
-These functions act as a common operational toolkit for higher-level scripts, enabling consistent interaction with cluster infrastructure components including compute nodes, BMCs, the scheduler, and system management services.
-Typical use cases include node triage, hardware fault investigation, scheduler state inspection, cluster maintenance operations, and automated diagnostics workflows across large-scale Linux HPC environments.
+
+Shared utility library used by the HPC diagnostics toolkit to provide common helper functions and reduce code duplication across scripts.
+The file contains reusable functions for input validation, identifier parsing, system information lookups, data formatting, and workflow automation commonly required during Linux and HPC administration tasks.
+
+Key capabilities include:
+* Validating and parsing structured system identifiers.
+* Translating between different node naming conventions.
+* Gathering node and system metadata.
+* Identifying hardware architecture characteristics for targeted analysis.
+* Providing helper functions for infrastructure and diagnostics workflows.
+* Simplifying interaction with system management and monitoring interfaces.
+* Supporting automated reporting, health checks, and troubleshooting activities.
+
+By centralising frequently used functions into a single library, the toolkit maintains consistent behaviour across scripts, improves maintainability, and reduces duplication of operational logic.
+Typical use cases include system health validation, diagnostics automation, infrastructure reporting, workflow standardisation, and general Linux administration tasks within large-scale compute environments.
+
 
 ---
 
