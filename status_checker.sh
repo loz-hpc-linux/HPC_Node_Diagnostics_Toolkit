@@ -4,7 +4,7 @@
 # status_checker.sh - Scheduler & system-state checker for a given SLOT
 # ----------------------------------------
 
-ENV_SETUP_SCRIPT="${ENV_SETUP_SCRIPT:-env_setup.sh}"
+ENV_SETUP_SCRIPT="${ENV_SETUP_SCRIPT:-setup_env.sh}"
 SCHEDULER_HELPER="${SCHEDULER_HELPER:-/opt/hpc-tools/lib/scheduler.sh}"
 
 # Help Menu
