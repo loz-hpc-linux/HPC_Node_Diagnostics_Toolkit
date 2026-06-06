@@ -22,7 +22,7 @@ The scripts are designed to be lightweight, composable, and easily executed from
 
 - Remote CPU and hardware identification
 - Node connectivity and availability monitoring
-- Automated log scanning across nodes and BMC interfaces
+- Automated log scanning across distributed system components
 - PBS scheduler state inspection and parsing
 - Cluster sweep classification for operational triage
 - Environment setup for structured debugging sessions
