@@ -10,7 +10,7 @@ The toolkit focuses on rapid infrastructure investigation by automating common o
 - hardware information gathering
 - network diagnostics
 
-These tools were developed to streamline troubleshooting workflows across distributed HPC environments where manual investigation can involve multiple infrastructure layers including compute nodes, BMCs, schedulers, and fabric management systems.
+These tools were developed to streamline troubleshooting workflows across distributed HPC environments where investigations often span multiple operational layers including compute, management, scheduling, and networking services.
 
 Developed while operating large-scale Cray EX series clusters containing thousands of compute nodes.
 
