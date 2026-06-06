@@ -3,10 +3,10 @@
 # Handle --help or -h before anything else
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
   echo
-  echo "env_setup.sh - Node triage environment setup"
+  echo "setup_env.sh - Node triage environment setup"
   echo
   echo "Usage:"
-  echo "  source ./env_setup.sh"
+  echo "  source ./setup_env.sh"
   echo
   echo "This script will:"
   echo "  - Prompt for TICKET (e.g. INC-1234-AB) and NID (e.g. node1234)"
@@ -16,7 +16,7 @@ if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
   echo "  - Export all variables for use in current session"
   echo
   echo "IMPORTANT: This script must be sourced to modify your current shell."
-  echo "Running it as './env_setup.sh' will NOT work as intended."
+  echo "Running it as './setup_env.sh' will NOT work as intended."
   echo
   exit 0
 fi
@@ -27,8 +27,8 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   echo "ERROR: This script must be sourced to work correctly."
   echo "It sets environment variables in your current shell."
   echo
-  echo "Usage: source ./env_setup.sh"
-  echo "Or for help: source ./env_setup.sh --help"
+  echo "Usage: source ./setup_env.sh"
+  echo "Or for help: source ./setup_env.sh --help"
   echo
   exit 1
 fi
