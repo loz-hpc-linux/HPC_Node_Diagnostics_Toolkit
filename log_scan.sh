@@ -2,6 +2,8 @@
 
 #set -euo pipefail
 
+# Site-specific paths and identifiers have been generalised.
+
 readonly NODE_MAP_FILE="${NODE_MAP_FILE:-/etc/hpc/node-map}"
 
 ########## Help / Usage ##########
@@ -12,19 +14,19 @@ Usage:
   log_scan_slot.sh <SLOT>
 
 Description:
-  Runs a set of standard greps over /var/log/n*/* and /var/log/messages
+  Runs a set of standard greps over node and management logs
   on both sides of a slot (<SLOT>b0 and <SLOT>b1) via SSH.
 
 Arguments:
-  SLOT          Slot identifier that resolves via the node mapping file
-                Example: $SLOT  (script will SSH to ${Slot}b0 and ${SLOT}b1)
+  SLOT          Slot identifier that resolves via the node mapping file.
+                Example: $SLOT  (script will SSH to ${SLOT}b0 and ${SLOT}b1)
 
 Options:
   -h, --help    Show this help menu and exit
 
 Notes:
   - Requires SSH access to ${SLOT}b0 and ${SLOT}b1.
-  - Uses /etc/hpc/node-map for xname<->nid lookups.
+  - Uses NODE_MAP_FILE for xname<->nid lookups.
   - cluset must be available for the NODES_* expansions.
 
 Examples:
@@ -70,7 +72,7 @@ echo "🔍 SLOT:     "
 echo "$SLOT"
 echo
 
-# Derive the affected node's XNAME from NID
+# Derive node and slot context from the node mapping file
 readonly NID=$(x2n "$SLOT" | head -n1)
 readonly XNAME=$(n2x "$NID")
 readonly BMC=${XNAME::-2}
@@ -95,19 +97,19 @@ echo
 ########## LOG SEARCHES ##########
 
 for side in b0 b1; do
-  run_search "FAILED in /var/log/n*/* on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'failed' /var/log/n*/* | tail -n 20\""
-  run_search "ERROR in /var/log/n*/* on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'error' /var/log/n*/* | tail -n 20\""
-  run_search "HSN in /var/log/n*/* on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'hsn' /var/log/n*/* | tail -n 20\""
-  run_search "PCIe in /var/log/n*/* on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'PCIe' /var/log/n*/* | tail -n 20\""
-  run_search "MCA in /var/log/n*/* on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'MCA' /var/log/n*/* | tail -n 10\""
-  run_search "MCE in /var/log/n*/* on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'MCE' /var/log/n*/* | tail -n 10\""
-  run_search "SQUASHFS in /var/log/n*/* on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'squashfs' /var/log/n*/* | tail -n 10\""
+  run_search "FAILED in node logs on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'failed' /var/log/n*/* | tail -n 20\""
+  run_search "ERROR in node logs on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'error' /var/log/n*/* | tail -n 20\""
+  run_search "HSN in node logs on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'hsn' /var/log/n*/* | tail -n 20\""
+  run_search "PCIe in node logs on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'PCIe' /var/log/n*/* | tail -n 20\""
+  run_search "MCA in node logs on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'MCA' /var/log/n*/* | tail -n 10\""
+  run_search "MCE in node logs on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'MCE' /var/log/n*/* | tail -n 10\""
+  run_search "SQUASHFS in node logs on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'squashfs' /var/log/n*/* | tail -n 10\""
 
-  run_search "FAILED in /var/log/messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'failed' /var/log/messages | tail -n 20\""
-  run_search "ERROR in /var/log/messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'error' /var/log/messages | tail -n 20\""
-  run_search "FAULT in /var/log/messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'fault' /var/log/messages | tail -n 20\""
-  run_search "POWER in /var/log/messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'power' /var/log/messages | tail -n 20\""
-  run_search "TYPE Off in /var/log/messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'type Off' /var/log/messages | tail -n 20\""
-  run_search "TYPE On in /var/log/messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'type On' /var/log/messages | tail -n 20\""
-  run_search "PCIe in /var/log/messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'PCIe' /var/log/messages | tail -n 20\""
+  run_search "FAILED in system messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'failed' /var/log/messages | tail -n 20\""
+  run_search "ERROR in system messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'error' /var/log/messages | tail -n 20\""
+  run_search "FAULT in system messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'fault' /var/log/messages | tail -n 20\""
+  run_search "POWER in system messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'power' /var/log/messages | tail -n 20\""
+  run_search "TYPE Off in system messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'type Off' /var/log/messages | tail -n 20\""
+  run_search "TYPE On in system messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'type On' /var/log/messages | tail -n 20\""
+  run_search "PCIe in system messages on ${SLOT}${side}" "ssh ${SLOT}${side} \"grep -Ei 'PCIe' /var/log/messages | tail -n 20\""
 done
